@@ -2,8 +2,6 @@
 
 > 一个通用 Agent Skill：**给 AI 一张角色图，还你一套横版游戏里"能打"的连招动画。** 任何支持 Agent Skills 开放标准（SKILL.md）的 AI 助手都能安装使用。
 
-![workflow](assets/workflow.png)
-
 ## 这个 skill 是干什么的？
 
 一句话：**把"用 AI 视频生成做游戏动作"这套实战方法，固化成一条可复用的流水线。**
@@ -45,7 +43,7 @@
 
 ## 前提条件
 
-- 一个支持 **Agent Skills 开放标准**的 AI 助手（Claude Code、ZCode、Codex CLI、Cursor 等——SKILL.md 是通用开放格式，放进对应技能目录即被自动发现）
+- 一个支持 **Agent Skills 开放标准**的 AI 助手（Claude Code、Cursor、Codex CLI 等——SKILL.md 是通用开放格式，放进对应技能目录即被自动发现）
 - 一个能用的 AI 视频生成服务（方法实测用的是字节的 **Seedance**，即梦内可调用），生成按张计积分
 - 目标引擎：Godot / Unity（其他引擎照搬 spec 参数也行）
 - Windows / macOS / Linux 均可——本 skill 只产出资产，不运行游戏
@@ -56,9 +54,9 @@
 
 | 你的工具 | 技能目录 |
 |----------|----------|
-| 通用标准（多家工具共用） | `~/.agents/skills/combo-anim-maker/` |
+| 通用标准（多家工具共用，推荐） | `~/.agents/skills/combo-anim-maker/` |
 | Claude Code | `~/.claude/skills/combo-anim-maker/` |
-| ZCode | `~/.zcode/skills/combo-anim-maker/` |
+| 其他工具 | 见各工具文档中的 skills 目录，把文件夹整个放进去即可 |
 
 也可以直接**对话安装**：把本仓库的 zip 拖进你的 AI 助手对话，说"帮我安装这个连招动画 skill"。
 
