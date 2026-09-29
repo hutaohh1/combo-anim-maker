@@ -11,6 +11,7 @@
     "structure": "windup-hit-recovery",
     "continuationWindow": 0.5,
     "interruptRecovery": true,
+    "inputBuffer": false,
     "restartFromIdle": true,
     "segmentsDetail": [
       { "index": 1, "clip": "clips/combo1-seg1.png", "windupFrames": 10, "hitFrames": 22, "recoveryFrames": 17 },
