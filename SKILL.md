@@ -97,4 +97,3 @@ description: 把用户的一张角色图做成横版 2D 游戏里"能打"的可�
 - `references/state-machine.md` — 连招状态机完整规则：状态转移表、续接窗口、后摇中断、敌人模式、Godot/Unity 落地提示
 - `references/vfx-notes.md` — 刀光三层贴图叠加法、2D 纸片人进 3D 空间摆特效、受击动画与出血方向
 - `assets/combo-spec.json` — 连招规格模板（段数 / 位移 / 受击 / 出血 / 特效参数），交付时按此填写
-- `assets/workflow.png` — 全流程图（一张图看懂整套打法）
