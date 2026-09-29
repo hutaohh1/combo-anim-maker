@@ -1,6 +1,6 @@
 # 游戏连招动画生成器（combo-anim-maker）
 
-> 一个 ZCode 技能：**给 AI 一张角色图，还你一套横版游戏里"能打"的连招动画。**
+> 一个通用 Agent Skill：**给 AI 一张角色图，还你一套横版游戏里"能打"的连招动画。** 任何支持 Agent Skills 开放标准（SKILL.md）的 AI 助手都能安装使用。
 
 ![workflow](assets/workflow.png)
 
@@ -25,7 +25,7 @@
 
 ## 快速上手（3 步）
 
-1. **触发**：在 ZCode 里说 ——
+1. **触发**：在你的 AI 助手（Agent）里说 ——
    - "给我的角色做一套连招动画"
    - "帮我做横版游戏的攻击动作，要带打击感"
    - "用 Seedance 给这个角色换皮做出招动画"
@@ -45,18 +45,22 @@
 
 ## 前提条件
 
-- ZCode（本 skill 为 ZCode 技能，放在 `~/.zcode/skills/combo-anim-maker/` 自动被发现）
+- 一个支持 **Agent Skills 开放标准**的 AI 助手（Claude Code、ZCode、Codex CLI、Cursor 等——SKILL.md 是通用开放格式，放进对应技能目录即被自动发现）
 - 一个能用的 AI 视频生成服务（方法实测用的是字节的 **Seedance**，即梦内可调用），生成按张计积分
 - 目标引擎：Godot / Unity（其他引擎照搬 spec 参数也行）
 - Windows / macOS / Linux 均可——本 skill 只产出资产，不运行游戏
 
 ## 安装
 
-三种方式任选：
+把整个 `combo-anim-maker/` 文件夹放进你的 AI 助手的技能目录，任选其一：
 
-1. **对话安装**：把本仓库的 zip 拖进 ZCode 对话说"帮我安装这个连招动画 skill"
-2. **手动**：`git clone https://github.com/<你的用户名>/combo-anim-maker.git` 到 `~/.zcode/skills/combo-anim-maker/`
-3. **直接看**：`SKILL.md` 是给 AI 的工作手册，`README.md`（本文件）是给人看的教程
+| 你的工具 | 技能目录 |
+|----------|----------|
+| 通用标准（多家工具共用） | `~/.agents/skills/combo-anim-maker/` |
+| Claude Code | `~/.claude/skills/combo-anim-maker/` |
+| ZCode | `~/.zcode/skills/combo-anim-maker/` |
+
+也可以直接**对话安装**：把本仓库的 zip 拖进你的 AI 助手对话，说"帮我安装这个连招动画 skill"。
 
 ## 方法来源与致谢
 
