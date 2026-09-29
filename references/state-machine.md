@@ -30,11 +30,22 @@
 
 1. 每次输入 → 从**当前段的前摇**开始播放
 2. 攻击播放进度 **< 50%**：不接受下一次输入（前摇+攻击前半段是硬直）
-3. 攻击进度 **≥ 50%** 时再按 → 本段打完**跳过后摇**，直接进下一段
-4. **后摇期间**再按 → 中断收招，立即接下一段
+3. 攻击进度 **≥ 50%** 时再按 → 本段打完**跳过后摇**，直接进下一段（最后一段没有"下一段"，见下方边界表）
+4. **后摇期间**再按 → 中断收招，立即接下一段（最后一段的后摇 → 直接从第一段重新开始）
 5. 无输入 → 播完后摇 → 回到待机；待机后再按 → 从第一段重来
 
 最终手感 = **首次前摇 → 连续攻击 ×N → 最后收招**。
+
+## 边界情况速查表（AI 回答玩家行为问题的标准答案）
+
+| 场景 | 默认行为 |
+|------|----------|
+| 攻击进度 < 50% 时再按（含连打 spam） | 输入丢弃：本段照常播完进后摇，**不会自动连满** |
+| 攻击进度 ≥ 50% 时再按，且不是最后一段 | 记为续接：本段打完跳过后摇，直进下一段 |
+| 攻击进度 ≥ 50% 时再按，且是最后一段（第 N 段） | 丢弃：没有下一段，本段播完进后摇回待机 |
+| 最后一段的后摇期间再按 | 中断收招，直接从第 1 段重新开始（跳过剩余后摇） |
+| 前摇期间再按 | 丢弃：前摇硬直不可取消 |
+| `inputBuffer: true` 时窗口外的输入 | 缓冲一次，到窗口自动生效（连打更顺手，但容易自动连满） |
 
 ## 参数表（写入 combo-spec.json）
 
@@ -44,25 +55,30 @@
 | `continuationWindow` | 0.5 | 攻击进度多少以后接受续接输入 |
 | `interruptRecovery` | true | 后摇是否可被输入打断 |
 | `restartFromIdle` | true | 回待机后再按是否从第一段开始 |
+| `inputBuffer` | false | true 时续接窗口外的输入缓冲一次而不是丢弃；连打手感更顺，但容易自动连满 |
 | `mode` | "player" | player = 可交互状态机；enemy = 整串直播 |
 
 ## 状态转移表（伪代码）
 
 ```
-state = IDLE
-on (attack pressed):
-    if state == IDLE:            -> WINDUP(segment=1)
-    if state == WINDUP:          ignore (硬直)
-    if state == HIT:
-        if progress >= continuationWindow:
-            buffered = true      -> 段末跳过后摇进下一段
-    if state == RECOVERY:
-        if interruptRecovery:    -> 下一段（跳过剩余后摇）
+state = IDLE；segment = 1；buffered = false
 
-on (segment animation end):
-    if buffered and segment < segments: -> WINDUP/HIT(segment+1)
-    elif segment < segments and buffered: loop
-    else:                        -> RECOVERY -> IDLE
+on 攻击键按下:
+    IDLE      → WINDUP(segment=1)
+    WINDUP    → 丢弃（硬直；inputBuffer=true 则缓冲一次）
+    HIT       → progress ≥ 窗口 且 segment < N：buffered = true（段末跳过后摇进下一段）
+                progress ≥ 窗口 且 segment = N：丢弃（没有下一段）
+                progress <  窗口：丢弃（inputBuffer=true 则缓冲一次）
+    RECOVERY  → interruptRecovery = false：丢弃
+                segment < N：中断后摇 → 进 segment+1
+                segment = N：中断后摇 → 从第 1 段重新开始
+
+on 本段攻击动作播完:
+    buffered 且 segment < N → segment += 1，进下一段攻击（跳过后摇），buffered = false
+    否则                    → RECOVERY
+
+on 后摇播完:
+    → IDLE（segment 重置为 1）
 ```
 
 ## 位移（追击能力）
