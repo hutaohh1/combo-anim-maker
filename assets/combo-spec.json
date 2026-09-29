@@ -1,0 +1,54 @@
+{
+  "$schema": "combo-spec v1 —— 连招规格模板。交付时复制本文件填好，随素材包一起交付。示例值来自像素小宝的单手剑五连击实测。",
+  "mode": "player",
+  "character": {
+    "name": "我的角色",
+    "referenceImage": "clips/ref/character-ref.png",
+    "style": "横版 2D · 绿幕抠像"
+  },
+  "combo": {
+    "segments": 5,
+    "structure": "windup-hit-recovery",
+    "continuationWindow": 0.5,
+    "interruptRecovery": true,
+    "restartFromIdle": true,
+    "segmentsDetail": [
+      { "index": 1, "clip": "clips/combo1-seg1.png", "windupFrames": 10, "hitFrames": 22, "recoveryFrames": 17 },
+      { "index": 2, "clip": "clips/combo1-seg2.png", "windupFrames": 8,  "hitFrames": 24, "recoveryFrames": 17 },
+      { "index": 3, "clip": "clips/combo1-seg3.png", "windupFrames": 9,  "hitFrames": 25, "recoveryFrames": 15 },
+      { "index": 4, "clip": "clips/combo1-seg4.png", "windupFrames": 9,  "hitFrames": 26, "recoveryFrames": 14 },
+      { "index": 5, "clip": "clips/combo1-seg5.png", "windupFrames": 9,  "hitFrames": 28, "recoveryFrames": 12 }
+    ]
+  },
+  "displacement": [
+    {
+      "segment": 5,
+      "note": "跳起转身向前砍，承担追击；拆三段分别加位移",
+      "splits": [
+        { "frames": "1-9",   "px": 20 },
+        { "frames": "10-38", "px": 230 },
+        { "frames": "39-49", "px": 10 }
+      ]
+    }
+  ],
+  "vfx": {
+    "slash": {
+      "baseTexture": "vfx/slash-base.png",
+      "streakTexture": "vfx/slash-streaks.png",
+      "erosionTexture": "vfx/slash-erosion.png",
+      "space": "3D",
+      "note": "2D 纸片人放进 3D 编辑空间，给特效设大小/位置/旋转角度/出现时机；腐蚀层逐步溶解"
+    }
+  },
+  "hitReactions": {
+    "lightFront": "hit-reactions/light-front.png",
+    "lightBack": "hit-reactions/light-back.png",
+    "heavyFront": "hit-reactions/heavy-front.png",
+    "heavyBack": "hit-reactions/heavy-back.png",
+    "note": "轻受击原地硬直；重受击踉跄几步"
+  },
+  "bloodDirections": [
+    { "hit": 1, "angle": 30, "note": "与攻击方向一致，仰角 30°" },
+    { "hit": 5, "angle": 30 }
+  ]
+}
